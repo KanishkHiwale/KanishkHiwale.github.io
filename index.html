@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanishk Hiwale — CS Engineer</title>
+<meta name="description" content="Kanishk Hiwale — CS Engineer specializing in automation, data validation, and eCommerce catalog operations. JLPT N4 certified.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --neon: #00ffc8;
+    --neon2: #ff4dff;
+    --bg: #050a0f;
+    --bg2: #0a1520;
+    --text: #e0f0ff;
+    --muted: #5a8aaa;
+    --accent: #0d2235;
+    --border: rgba(0, 255, 200, 0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      linear-gradient(rgba(0, 255, 200, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 200, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 255, 200, 0.3); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 100;
+    padding: 16px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(5, 10, 15, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    color: var(--neon);
+    letter-spacing: 3px;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 2px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--neon); }
+
+  .nav-cta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    border: 1px solid rgba(0, 255, 200, 0.4);
+    padding: 8px 18px;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: rgba(0, 255, 200, 0.08); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .katakana-bg {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: rgba(0, 255, 200, 0.055);
+    line-height: 2.2;
+    text-align: right;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: 4px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    border: 1px solid rgba(0, 255, 200, 0.35);
+    padding: 5px 16px;
+    border-radius: 1px;
+    margin-bottom: 24px;
+    letter-spacing: 3px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  h1.hero-name {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.4s forwards;
+  }
+
+  h1.hero-name span { color: var(--neon); }
+
+  .hero-tagline {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(12px, 1.4vw, 15px);
+    color: var(--muted);
+    margin-bottom: 36px;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.6s forwards;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.8s forwards;
+  }
+
+  .btn-primary {
+    background: var(--neon);
+    color: #000;
+    padding: 13px 32px;
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--neon);
+    padding: 13px 32px;
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-decoration: none;
+    border: 1px solid rgba(0, 255, 200, 0.4);
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover { background: rgba(0, 255, 200, 0.08); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex;
+    gap: 44px;
+    margin-top: 56px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s 1s forwards;
+  }
+
+  .stat { border-left: 2px solid var(--neon); padding-left: 18px; }
+  .stat-num { font-family: 'Orbitron', monospace; font-size: 24px; font-weight: 700; color: var(--neon); }
+  .stat-label { font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-top: 3px; }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 60px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 0.6s 1.2s forwards;
+  }
+
+  .scroll-hint::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 90px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 52px;
+  }
+
+  .section-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    opacity: 0.5;
+    letter-spacing: 2px;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(16px, 2.2vw, 26px);
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 255, 200, 0.25), transparent);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: rgba(224, 240, 255, 0.78);
+    margin-bottom: 18px;
+  }
+
+  .about-text em { color: var(--neon); font-style: normal; }
+
+  .about-text .core-comps {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .comp-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .lang-stack { display: flex; flex-direction: column; gap: 14px; }
+
+  .lang-card {
+    background: var(--accent);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--neon);
+    padding: 18px 22px;
+  }
+
+  .lang-card h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .lang-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+  }
+
+  .skill-card {
+    background: var(--accent);
+    border: 1px solid var(--border);
+    padding: 22px;
+    transition: border-color 0.25s, transform 0.25s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(0,255,200,0.03), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .skill-card:hover { border-color: rgba(0, 255, 200, 0.4); transform: translateY(-3px); }
+  .skill-card:hover::after { opacity: 1; }
+
+  .skill-icon { font-size: 24px; margin-bottom: 12px; }
+
+  .skill-card h4 {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .skill-card p { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+
+  .skill-bar { height: 2px; background: rgba(255, 255, 255, 0.06); border-radius: 1px; }
+  .skill-bar-fill { height: 100%; background: var(--neon); border-radius: 1px; transition: width 1s ease; }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--accent);
+    border: 1px solid var(--border);
+    padding: 30px;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--neon);
+    transition: height 0.35s ease;
+  }
+
+  .project-card:hover::before { height: 100%; }
+  .project-card:hover { border-color: rgba(0, 255, 200, 0.3); transform: translateY(-4px); }
+
+  .project-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--neon);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    opacity: 0.65;
+  }
+
+  .project-card h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .project-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+
+  .project-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .metric {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    letter-spacing: 1px;
+  }
+
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tech-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border: 1px solid rgba(0, 255, 200, 0.18);
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .project-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(0,255,200,0.3);
+    padding-bottom: 1px;
+    transition: opacity 0.2s;
+  }
+
+  .project-link:hover { opacity: 0.7; }
+
+  /* CERTIFICATIONS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .cert-card {
+    background: var(--accent);
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .cert-card:hover { border-color: rgba(0, 255, 200, 0.3); }
+
+  .cert-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .cert-card h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+  }
+
+  .cert-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 36px; max-width: 700px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--neon), rgba(0,255,200,0.1));
+  }
+
+  .tl-item { position: relative; margin-bottom: 40px; }
+
+  .tl-dot {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 13px; height: 13px;
+    border: 2px solid var(--neon);
+    background: var(--bg);
+    transform: rotate(45deg);
+  }
+
+  .tl-dot.active {
+    background: var(--neon);
+    box-shadow: 0 0 10px rgba(0,255,200,0.5);
+  }
+
+  .tl-year {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+  }
+
+  .tl-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .tl-sub { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* CONTACT */
+  #contact .contact-inner {
+    background: var(--accent);
+    border: 1px solid var(--border);
+    padding: 48px;
+    max-width: 640px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact .contact-inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--neon), transparent);
+  }
+
+  #contact h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .contact-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 32px;
+    line-height: 1.8;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .contact-link:hover {
+    border-color: rgba(0, 255, 200, 0.4);
+    background: rgba(0, 255, 200, 0.04);
+    color: var(--neon);
+  }
+
+  .contact-link-label {
+    color: var(--neon);
+    opacity: 0.55;
+    font-size: 10px;
+    letter-spacing: 2px;
+    width: 70px;
+    flex-shrink: 0;
+  }
+
+  /* AVAILABILITY BADGE */
+  .avail-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--neon);
+    letter-spacing: 2px;
+  }
+
+  .avail-dot {
+    width: 7px; height: 7px;
+    background: var(--neon);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .footer-neon { color: var(--neon); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .nav-links { display: none; }
+    section { padding: 70px 24px; }
+    #hero { padding: 100px 24px 70px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .katakana-bg { display: none; }
+    footer { padding: 24px; }
+    .hero-stats { gap: 28px; }
+    #contact .contact-inner { padding: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">KH // SYSTEM</a>
+  <ul class="nav-links">
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#skills">SKILLS</a></li>
+    <li><a href="#projects">PROJECTS</a></li>
+    <li><a href="#journey">JOURNEY</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+  <a href="mailto:kanishkhiwale06@gmail.com" class="nav-cta">HIRE ME</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="katakana-bg" aria-hidden="true">
+    カニシュク<br>ヒワレ<br>コード<br>自動化<br>忍者<br>データ<br>日本語<br>JLPT<br>N4・N3<br>エンジニア<br>精度<br>システム
+  </div>
+
+  <div class="hero-badge">[ KANISHK HIWALE · CS ENGINEER · AURANGABAD ]</div>
+
+  <h1 class="hero-name">
+    Build.<br>
+    <span>Automate.</span><br>
+    Deliver.
+  </h1>
+
+  <p class="hero-tagline">Python · OpenCV · Data Validation · eCommerce Catalog Ops · JLPT N4</p>
+
+  <div class="hero-btns">
+    <a href="#projects" class="btn-primary">VIEW PROJECTS</a>
+    <a href="#contact" class="btn-secondary">CONTACT ME</a>
+    <a href="https://github.com/KanishkHiwale" target="_blank" rel="noopener" class="btn-secondary">GITHUB ↗</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">95%+</div>
+      <div class="stat-label">DATA ACCURACY</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">30+</div>
+      <div class="stat-label">RECORDS/SEC</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">90%</div>
+      <div class="stat-label">MANUAL EFFORT SAVED</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">JLPT N4</div>
+      <div class="stat-label">JAPANESE CERTIFIED</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">SCROLL DOWN</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">001 —</span>
+    <h2 class="section-title">ABOUT</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="about-grid fade-in">
+    <div class="about-text">
+      <p>
+        Detail-oriented <em>Computer Science graduate</em> with demonstrated ability to manage data-driven operations, identify and correct errors, and consistently meet delivery SLAs and KPIs.
+      </p>
+      <p>
+        Experienced in building <em>automated systems</em> that process and validate large volumes of data with high accuracy — including pipelines handling <em>30+ records per second</em> with 95%+ data accuracy and zero manual intervention.
+      </p>
+      <p>
+        Certified in <em>Japanese (JLPT N4)</em>, actively advancing to N3 and N2. Eager to contribute to eCommerce catalog operations and product data accuracy in a fast-paced, SLA-driven environment.
+      </p>
+
+      <div class="core-comps">
+        <span class="comp-tag">CATALOG DATA MGMT</span>
+        <span class="comp-tag">QC & ERROR CORRECTION</span>
+        <span class="comp-tag">SLA / KPI</span>
+        <span class="comp-tag">PROCESS IMPROVEMENT</span>
+        <span class="comp-tag">SOP ADHERENCE</span>
+        <span class="comp-tag">VENDOR COORDINATION</span>
+        <span class="comp-tag">WORKFLOW AUTOMATION</span>
+        <span class="comp-tag">ATTENTION TO DETAIL</span>
+      </div>
+    </div>
+
+    <div class="lang-stack">
+      <div class="lang-card">
+        <h4>🇯🇵 JAPANESE</h4>
+        <p>JLPT N4 Certified · Written, Reading & Oral proficiency · Actively preparing for N3 and N2</p>
+      </div>
+      <div class="lang-card">
+        <h4>🇬🇧 ENGLISH</h4>
+        <p>Business-level proficiency · Strong written and oral communication skills</p>
+      </div>
+      <div class="lang-card">
+        <h4>🇮🇳 HINDI / MARATHI</h4>
+        <p>Fluent in Hindi (spoken & written) · Native Marathi speaker</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">002 —</span>
+    <h2 class="section-title">ARSENAL</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid fade-in">
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <h4>Python</h4>
+      <p>OOP, automation, pipelines</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">👁️</div>
+      <h4>OpenCV / Dlib</h4>
+      <p>Computer vision, detection</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🖐️</div>
+      <h4>MediaPipe</h4>
+      <p>Gesture & pose recognition</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:78%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <h4>TensorFlow / ML</h4>
+      <p>Model training, inference</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <h4>MS Excel</h4>
+      <p>Data mining, VLOOKUP, pivot</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔍</div>
+      <h4>Data Validation & QC</h4>
+      <p>Error detection, accuracy</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗂️</div>
+      <h4>Git / GitHub</h4>
+      <p>Version control, collaboration</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:72%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🇯🇵</div>
+      <h4>Japanese — JLPT N4</h4>
+      <p>Advancing to N3 / N2</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:58%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔧</div>
+      <h4>C / C++</h4>
+      <p>Systems programming</p>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">003 —</span>
+    <h2 class="section-title">CASE FILES</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid fade-in">
+
+    <div class="project-card">
+      <div class="project-tag">2023 · DATA PIPELINE · COMPUTER VISION</div>
+      <h3>Automated Attendance & Data Validation System</h3>
+      <p>
+        Designed and implemented an end-to-end data capture and validation pipeline that automatically collected, verified, and stored attendance records into a structured database. Multi-layer error-detection algorithms ensure record accuracy under varying real-world conditions — directly analogous to catalog data ingestion workflows.
+      </p>
+      <div class="project-metrics">
+        <span class="metric">▶ 95%+ DATA ACCURACY</span>
+        <span class="metric">▶ 30+ RECORDS/SEC</span>
+        <span class="metric">▶ 90% LESS MANUAL EFFORT</span>
+      </div>
+      <div class="tech-tags">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">OpenCV</span>
+        <span class="tech-tag">Dlib</span>
+        <span class="tech-tag">Haar Cascade</span>
+        <span class="tech-tag">SQLite</span>
+      </div>
+      <!-- Replace # with your actual GitHub link -->
+      <a href="https://github.com/KanishkHiwale" target="_blank" rel="noopener" class="project-link">VIEW ON GITHUB ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">2023 · REAL-TIME AI · CLASSIFICATION</div>
+      <h3>Real-Time Gesture Recognition & Data Classification System</h3>
+      <p>
+        Built a real-time data classification system processing continuous input streams and mapping them to defined output categories. Implemented structured logging and output validation to ensure data integrity across all classified entries — demonstrating ability to handle high-volume data tasks accurately per defined instructions.
+      </p>
+      <div class="project-metrics">
+        <span class="metric">▶ 92% ACCURACY</span>
+        <span class="metric">▶ &lt;50MS LATENCY</span>
+      </div>
+      <div class="tech-tags">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">OpenCV</span>
+        <span class="tech-tag">MediaPipe</span>
+        <span class="tech-tag">Tkinter</span>
+      </div>
+      <a href="https://github.com/KanishkHiwale" target="_blank" rel="noopener" class="project-link">VIEW ON GITHUB ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">2022 · AUTOMATION · NLP</div>
+      <h3>Intelligent Command Processing & Task Automation System</h3>
+      <p>
+        Developed a modular automation system supporting 20+ command types for information retrieval, task execution, and workflow management. Integrated multi-source data coordination and automated follow-up actions. Applied root-cause analysis methodology to iteratively improve command parsing accuracy and reliability.
+      </p>
+      <div class="project-metrics">
+        <span class="metric">▶ 85%+ RECOGNITION RATE</span>
+        <span class="metric">▶ 20+ COMMAND TYPES</span>
+      </div>
+      <div class="tech-tags">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Speech Recognition</span>
+        <span class="tech-tag">Text-to-Speech</span>
+        <span class="tech-tag">Automation</span>
+      </div>
+      <a href="https://github.com/KanishkHiwale" target="_blank" rel="noopener" class="project-link">VIEW ON GITHUB ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="section-header">
+    <span class="section-num">004 —</span>
+    <h2 class="section-title">CERTIFICATIONS</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="certs-grid fade-in">
+    <div class="cert-card">
+      <div class="cert-icon">🇯🇵</div>
+      <div>
+        <h4>JLPT N4</h4>
+        <p>Japanese Language Proficiency Test · Japan Foundation · Certified · Actively preparing for N3 and N2</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🐍</div>
+      <div>
+        <h4>Essentials of Python</h4>
+        <p>Data structures, OOP, best practices · Certified</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🤖</div>
+      <div>
+        <h4>Essentials of Generative AI</h4>
+        <p>LLMs, prompt engineering, AI applications · Certified</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="section-header">
+    <span class="section-num">005 —</span>
+    <h2 class="section-title">JOURNEY</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="timeline fade-in">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2019 – 2021</div>
+      <div class="tl-title">Higher Secondary Certificate — Science</div>
+      <div class="tl-sub">Milind College of Science, Aurangabad, Maharashtra</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2021</div>
+      <div class="tl-title">Entered Engineering</div>
+      <div class="tl-sub">B.Tech Computer Science & Engineering — P.E.S College of Engineering, Aurangabad (DBATU)</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022</div>
+      <div class="tl-title">First Automation System Built</div>
+      <div class="tl-sub">Intelligent Command Processing System — 20+ commands, 85%+ recognition rate</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2023</div>
+      <div class="tl-title">Computer Vision Projects</div>
+      <div class="tl-sub">Attendance pipeline & gesture recognition — 30+ records/sec, 95% accuracy, 92% classification accuracy</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-title">JLPT N4 Certified</div>
+      <div class="tl-sub">Japanese Language Proficiency · Advancing to N3 and N2</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025</div>
+      <div class="tl-title">B.Tech Graduated</div>
+      <div class="tl-sub">Computer Science & Engineering — P.E.S College of Engineering · Coursework: ML, DBMS, DSA, OOP, Software Engineering</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot active"></div>
+      <div class="tl-year">NOW</div>
+      <div class="tl-title">Open to Opportunities 🚀</div>
+      <div class="tl-sub">Targeting eCommerce catalog ops, data validation, and automation roles. Advancing Japanese to N3.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">006 —</span>
+    <h2 class="section-title">CONTACT</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="contact-inner fade-in">
+    <h3>Open to Opportunities</h3>
+    <p class="contact-desc">
+      Currently seeking roles in eCommerce catalog operations, data validation, and automation-driven environments. Available for full-time roles, internships, and project collaborations.
+    </p>
+
+    <div class="contact-links">
+      <a href="mailto:kanishkhiwale06@gmail.com" class="contact-link">
+        <span class="contact-link-label">EMAIL</span>
+        kanishkhiwale06@gmail.com
+      </a>
+      <a href="https://github.com/KanishkHiwale" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-link-label">GITHUB</span>
+        github.com/KanishkHiwale
+      </a>
+      <a href="tel:+917447205078" class="contact-link">
+        <span class="contact-link-label">PHONE</span>
+        +91-7447205078
+      </a>
+      <!-- Add your LinkedIn URL below when ready -->
+      <!-- <a href="https://linkedin.com/in/YOUR_ID" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-link-label">LINKEDIN</span>
+        linkedin.com/in/YOUR_ID
+      </a> -->
+    </div>
+
+    <div class="avail-badge">
+      <div class="avail-dot"></div>
+      AVAILABLE FOR OPPORTUNITIES
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span class="footer-neon">KANISHK HIWALE</span> · Aurangabad, India</p>
+  <p style="font-family:'Share Tech Mono',monospace;font-size:11px">
+    <span class="footer-neon">SYSTEM ONLINE</span> · kanishkhiwale06@gmail.com
+  </p>
+</footer>
+
+<script>
+  // Scroll fade-in observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav link highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 120) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current
+        ? 'var(--neon)'
+        : 'var(--muted)';
+    });
+  });
+</script>
+
+</body>
+</html>
